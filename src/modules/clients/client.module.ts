@@ -33,4 +33,4 @@ import { FindAllClientsHandler } from './infrastructure/controllers/handlers/fin
   ],
   exports: [PrismaClientRepository],
 })
-export class ClientsModule {}
+export class ClientModule {}
