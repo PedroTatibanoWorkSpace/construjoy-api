@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14.10-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: contrucontrol
+      POSTGRES_PASSWORD: teste123
+      POSTGRES_DB: contrucontrol
+
+  constru-control:
+    depends_on:
+      - postgres
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: constru-control
+    ports:
+      - '8000:8000'
+
+

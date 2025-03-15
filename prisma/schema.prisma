@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  Active
+  Inactive
+}
+
+model Users {
+  id                   String       @id  @default(uuid())
+  name                 String
+  email                String       @unique
+  phone                String       @unique
+  createdAt            DateTime     @default(now())
+  updateAt             DateTime     @updatedAt
+  accountsReceivable   AccountsReceivable[]
+}
+
+model Clients {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  phone     String   @unique
+  document  String   @unique
+  status    Status   @default(Active)
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+  accountsReceivable AccountsReceivable[]
+}
+
+model AccountsReceivable {
+  id                   String       @id  @default(uuid())
+  id_user              String
+  id_client            String 
+  value                Float
+  description          String
+  installmentNumber    Int
+  validate             DateTime
+  paymentDate          DateTime
+  status               Status       @default(Active)
+  createdAt            DateTime     @default(now())
+  updateAt             DateTime     @updatedAt
+  payments             Payments[]
+
+  user                 Users        @relation(fields: [id_user], references: [id])
+  client               Clients      @relation(fields: [id_client], references: [id])
+}
+
+model Payments {
+  id                   String       @id  @default(uuid())
+  id_receivable        String
+  value                Float
+  paymentMethod        String
+  status               Status       @default(Active)
+  createdAt            DateTime     @default(now())
+  updateAt             DateTime     @updatedAt
+
+  receivable           AccountsReceivable   @relation(fields: [id_receivable], references: [id])
+}
