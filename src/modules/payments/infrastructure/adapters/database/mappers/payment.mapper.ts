@@ -14,10 +14,9 @@ export class PaymentMapper {
     );
   }
 
-  static toPersistence(payment: Payment): PrismaPayment {
+  static toPersistence(payment: Payment): Omit<PrismaPayment, 'id_receivable'> {
     return {
       id: payment.id,
-      id_receivable: payment.idReceivable,
       value: payment.value,
       paymentMethod: payment.paymentMethod,
       status: payment.status,

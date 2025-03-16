@@ -1,4 +1,5 @@
 import { IsString, IsNumber, IsDate, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class UpdateReceivableDto {
   @IsOptional()
@@ -22,10 +23,12 @@ export class UpdateReceivableDto {
   installmentNumber?: number;
 
   @IsOptional()
+  @Type(() => Date)
   @IsDate()
   validate?: Date;
 
   @IsOptional()
+  @Type(() => Date)
   @IsDate()
   paymentDate?: Date;
 }

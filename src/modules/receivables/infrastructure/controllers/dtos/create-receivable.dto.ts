@@ -1,4 +1,5 @@
 import { IsString, IsNumber, IsDate } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateReceivableDto {
   @IsString()
@@ -16,9 +17,11 @@ export class CreateReceivableDto {
   @IsNumber()
   installmentNumber: number;
 
+  @Type(() => Date)
   @IsDate()
   validate: Date;
 
+  @Type(() => Date)
   @IsDate()
   paymentDate: Date;
 }

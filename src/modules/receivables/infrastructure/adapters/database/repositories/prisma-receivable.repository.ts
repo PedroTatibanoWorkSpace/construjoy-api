@@ -18,7 +18,7 @@ export class PrismaReceivableRepository implements ReceivableRepositoryPort {
       data: {
         ...ReceivableMapper.toPersistence(receivable),
         user: { connect: { id: receivable.userId } }, 
-        client: { connect: { id: receivable.clientId } }, 
+        client: { connect: { id: receivable.clientId } },
       },
     });
     return ReceivableMapper.toDomain(prismaReceivable);

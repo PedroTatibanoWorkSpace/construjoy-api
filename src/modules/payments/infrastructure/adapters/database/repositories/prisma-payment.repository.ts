@@ -15,7 +15,10 @@ export class PrismaPaymentRepository implements PaymentRepositoryPort {
 
   async create(payment: Payment): Promise<Payment> {
     const prismaPayment = await this.prisma.payments.create({
-      data: PaymentMapper.toPersistence(payment),
+      data: {
+        ...PaymentMapper.toPersistence(payment),
+        receivable: { connect: { id: payment.idReceivable } },
+      },
     });
     return PaymentMapper.toDomain(prismaPayment);
   }
@@ -33,7 +36,10 @@ export class PrismaPaymentRepository implements PaymentRepositoryPort {
   async update(id: string, data: Partial<Payment>): Promise<Payment> {
     const prismaPayment = await this.prisma.payments.update({
       where: { id },
-      data: PaymentMapper.toPersistence(data as Payment),
+      data: {
+        ...PaymentMapper.toPersistence(data as Payment),
+        receivable: data.idReceivable ? { connect: { id: data.idReceivable } } : undefined, 
+      },
     });
     return PaymentMapper.toDomain(prismaPayment);
   }

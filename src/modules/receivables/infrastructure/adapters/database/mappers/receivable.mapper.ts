@@ -18,11 +18,9 @@ export class ReceivableMapper {
     );
   }
 
-  static toPersistence(receivable: Receivable): PrismaReceivable {
+  static toPersistence(receivable: Receivable): Omit<PrismaReceivable, 'id_user' | 'id_client'> {
     return {
       id: receivable.id,
-      id_user: receivable.userId,
-      id_client: receivable.clientId,
       value: receivable.value,
       description: receivable.description,
       installmentNumber: receivable.installmentNumber,
