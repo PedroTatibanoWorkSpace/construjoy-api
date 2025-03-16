@@ -1,4 +1,4 @@
-import { Clients as PrismaClient } from '@prisma/client';
+import { Clients as PrismaClient, Status } from '@prisma/client'; // Importar o enum Status
 import { Client } from 'src/modules/clients/domain/entities/client.entity';
 
 export class ClientMapper {
@@ -10,7 +10,7 @@ export class ClientMapper {
       prismaClient.phone,
       prismaClient.document,
       prismaClient.createdAt,
-      prismaClient.status.toLowerCase(),
+      prismaClient.status as Status,
       prismaClient.updateAt,
     );
   }
@@ -22,7 +22,7 @@ export class ClientMapper {
       name: client.name,
       phone: client.phone,
       document: client.document,
-      status: client.status.charAt(0).toUpperCase() + client.status.slice(1).toLowerCase() as PrismaClient['status'], // Corrige o formato do status
+      status: client.status, 
       createdAt: client.createdAt,
       updateAt: client.updatedAt ?? new Date(),
     };

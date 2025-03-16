@@ -1,4 +1,5 @@
 import { CreateClientDto } from '../dtos/create-client.dto';
+import { Status } from '@prisma/client'; // Importar o enum Status gerado pelo Prisma
 
 export class Client {
   constructor(
@@ -8,7 +9,7 @@ export class Client {
     public phone: string,
     public document: string,
     public readonly createdAt: Date,
-    public status: string,
+    public status: Status, // Alterar o tipo para Status
     public updatedAt?: Date,
   ) {}
 
@@ -20,7 +21,7 @@ export class Client {
       createClientDto.phone,
       createClientDto.document,
       new Date(),
-      'active',
+      Status.Active, // Usar o enum Status
     );
   }
 
@@ -36,6 +37,6 @@ export class Client {
   }
 
   delete(): void {
-    this.status = 'inactive';
+    this.status = Status.Inactive; // Usar o enum Status
   }
 }
