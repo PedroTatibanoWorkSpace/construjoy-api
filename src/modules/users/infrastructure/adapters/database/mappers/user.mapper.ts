@@ -1,4 +1,4 @@
-import { Users as PrismaUser } from '@prisma/client';
+import { Users as PrismaUser, Status } from '@prisma/client'; // Importar o enum Status
 import { User } from 'src/modules/users/domain/entities/user.entity';
 
 export class UserMapper {
@@ -9,7 +9,8 @@ export class UserMapper {
       prismaUser.email,
       prismaUser.phone,
       prismaUser.createdAt,
-      prismaUser.updateAt,
+      prismaUser.status as Status,
+      prismaUser.updateAt, 
     );
   }
 
@@ -20,7 +21,8 @@ export class UserMapper {
       email: user.email,
       phone: user.phone,
       createdAt: user.createdAt,
-      updateAt: user.updatedAt ?? new Date(),
+      updateAt: user.updatedAt ?? new Date(), 
+      status: user.status,
     };
   }
 }
