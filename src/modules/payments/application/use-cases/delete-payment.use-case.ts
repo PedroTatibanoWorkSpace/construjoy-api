@@ -20,12 +20,13 @@ export class DeletePaymentUseCase {
         throw new NotFoundException('Pagamento não encontrado');
       }
 
-      await this.paymentRepository.delete(id);
+      payment.delete(); 
+      await this.paymentRepository.update(id, payment); 
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new InternalServerErrorException('Erro ao deletar pagamento');
+      throw new InternalServerErrorException('Erro ao inativar pagamento');
     }
   }
 }
