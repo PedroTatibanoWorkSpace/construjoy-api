@@ -18,6 +18,7 @@ model Users {
   email                String       @unique
   phone                String       @unique
   createdAt            DateTime     @default(now())
+  status               Status       @default(Active)
   updateAt             DateTime     @updatedAt
   accountsReceivable   AccountsReceivable[]
 }

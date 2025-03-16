@@ -22,13 +22,13 @@ export class DeleteClientUseCase {
         throw new NotFoundException('Cliente não encontrado');
       }
 
-      client.delete();
-      await this.clientRepository.update(id, client);
+      client.delete(); 
+      await this.clientRepository.update(id, client); 
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException('Erro ao inativar cliente');
     }
   }
 }
