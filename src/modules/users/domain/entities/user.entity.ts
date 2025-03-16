@@ -1,4 +1,5 @@
 import { CreateUserDto } from '../../application/dtos/create-user.dto';
+import { Status } from '@prisma/client'; // Importar o enum Status gerado pelo Prisma
 
 export class User {
   constructor(
@@ -7,6 +8,7 @@ export class User {
     public email: string,
     public phone: string,
     public readonly createdAt: Date,
+    public status: Status, 
     public updatedAt?: Date,
   ) {}
 
@@ -17,12 +19,21 @@ export class User {
       data.email,
       data.phone,
       new Date(),
+      Status.Active,
     );
   }
 
-  update(data: Partial<User>): void {
-    this.name = data.name ?? this.name;
-    this.email = data.email ?? this.email;
-    this.phone = data.phone ?? this.phone;
+  update(
+    updateData: Partial<
+      Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'status'>
+    >,
+  ): void {
+    this.name = updateData.name ?? this.name;
+    this.email = updateData.email ?? this.email;
+    this.phone = updateData.phone ?? this.phone;
+  }
+
+  delete(): void {
+    this.status = Status.Inactive;
   }
 }
