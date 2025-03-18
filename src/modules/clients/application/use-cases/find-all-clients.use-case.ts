@@ -17,7 +17,7 @@ export class FindAllClientsUseCase {
     try {
       return this.clientRepository.findAll();
     } catch (error) {
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException("Erro ao achar os clients");
     }
   }
 }

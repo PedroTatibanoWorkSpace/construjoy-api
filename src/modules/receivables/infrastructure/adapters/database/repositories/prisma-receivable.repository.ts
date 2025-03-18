@@ -17,7 +17,6 @@ export class PrismaReceivableRepository implements ReceivableRepositoryPort {
     const prismaReceivable = await this.prisma.accountsReceivable.create({
       data: {
         ...ReceivableMapper.toPersistence(receivable),
-        user: { connect: { id: receivable.userId } }, 
         client: { connect: { id: receivable.clientId } },
       },
     });
@@ -27,7 +26,7 @@ export class PrismaReceivableRepository implements ReceivableRepositoryPort {
   async findOne(where: Prisma.AccountsReceivableWhereInput): Promise<Receivable | null> {
     const prismaReceivable = await this.prisma.accountsReceivable.findFirst({
       where,
-      include: { user: true, client: true }, 
+      include: { client: true, payments: true }, // Removido o campo `user`
     });
     return prismaReceivable ? ReceivableMapper.toDomain(prismaReceivable) : null;
   }
@@ -35,7 +34,7 @@ export class PrismaReceivableRepository implements ReceivableRepositoryPort {
   async findAll(where?: Prisma.AccountsReceivableWhereInput): Promise<Receivable[]> {
     const prismaReceivables = await this.prisma.accountsReceivable.findMany({
       where,
-      include: { user: true, client: true }, 
+      include: { client: true, payments: true },
     });
     return prismaReceivables.map(ReceivableMapper.toDomain);
   }
@@ -45,7 +44,6 @@ export class PrismaReceivableRepository implements ReceivableRepositoryPort {
       where: { id },
       data: {
         ...ReceivableMapper.toPersistence(data as Receivable),
-        user: data.userId ? { connect: { id: data.userId } } : undefined, 
         client: data.clientId ? { connect: { id: data.clientId } } : undefined,
       },
     });

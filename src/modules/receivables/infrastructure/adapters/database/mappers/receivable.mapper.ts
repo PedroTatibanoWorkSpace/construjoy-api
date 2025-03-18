@@ -5,30 +5,37 @@ export class ReceivableMapper {
   static toDomain(prismaReceivable: PrismaReceivable): Receivable {
     return new Receivable(
       prismaReceivable.id,
-      prismaReceivable.id_user,
       prismaReceivable.id_client,
       prismaReceivable.value,
       prismaReceivable.description,
-      prismaReceivable.installmentNumber,
       prismaReceivable.validate,
-      prismaReceivable.paymentDate,
+      prismaReceivable.paymentStatus,
       prismaReceivable.status as Status,
       prismaReceivable.createdAt,
-      prismaReceivable.updateAt,
+      prismaReceivable.paymentDate ?? undefined,
+      prismaReceivable.internal_id ?? undefined,
+      prismaReceivable.updateAt ?? undefined,
     );
   }
 
-  static toPersistence(receivable: Receivable): Omit<PrismaReceivable, 'id_user' | 'id_client'> {
-    return {
+  static toPersistence(receivable: Receivable): PrismaReceivable {
+    const persistence: Partial<PrismaReceivable> = {
       id: receivable.id,
       value: receivable.value,
       description: receivable.description,
-      installmentNumber: receivable.installmentNumber,
       validate: receivable.validate,
-      paymentDate: receivable.paymentDate,
+      paymentDate: receivable.paymentDate ?? null,
       status: receivable.status,
       createdAt: receivable.createdAt,
-      updateAt: receivable.updatedAt ?? new Date(),
+      paymentStatus: receivable.paymentStatus,
+      internal_id: receivable.internalId ?? null,
+      updateAt: receivable.updatedAt ?? null,
     };
+
+    if (receivable.internalId !== undefined) {
+      persistence.internal_id = receivable.internalId;
+    }
+
+    return persistence as PrismaReceivable;
   }
 }

@@ -3,7 +3,6 @@ export class CreateReceivableDto {
   clientId: string;
   value: number;
   description: string;
-  installmentNumber: number;
   validate: Date;
   paymentDate: Date;
 }

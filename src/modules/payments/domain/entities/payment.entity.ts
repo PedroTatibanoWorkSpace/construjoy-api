@@ -9,6 +9,7 @@ export class Payment {
     public paymentMethod: string,
     public status: Status,
     public readonly createdAt: Date,
+    public readonly internalId?: number,
     public updatedAt?: Date,
   ) {}
 
@@ -25,12 +26,13 @@ export class Payment {
 
   update(
     updateData: Partial<
-      Omit<Payment, 'id' | 'createdAt' | 'updatedAt' | 'status'>
+      Omit<Payment, 'id' | 'createdAt' | 'status'>
     >,
   ): void {
     this.idReceivable = updateData.idReceivable ?? this.idReceivable;
     this.value = updateData.value ?? this.value;
     this.paymentMethod = updateData.paymentMethod ?? this.paymentMethod;
+    this.updatedAt = new Date();
   }
 
   delete(): void {

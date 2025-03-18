@@ -8,7 +8,8 @@ export class User {
     public email: string,
     public phone: string,
     public readonly createdAt: Date,
-    public status: Status, 
+    public status: Status,
+    public readonly internalId?: number,
     public updatedAt?: Date,
   ) {}
 
@@ -25,12 +26,13 @@ export class User {
 
   update(
     updateData: Partial<
-      Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'status'>
+      Omit<User, 'id' | 'createdAt'| 'status'>
     >,
   ): void {
     this.name = updateData.name ?? this.name;
     this.email = updateData.email ?? this.email;
     this.phone = updateData.phone ?? this.phone;
+    this.updatedAt = new Date();
   }
 
   delete(): void {
