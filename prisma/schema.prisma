@@ -13,54 +13,55 @@ enum Status {
 }
 
 model Users {
-  id                   String       @id  @default(uuid())
+  id                   String       @id @default(uuid()) // Gerado automaticamente como UUID
+  internal_id          Int?         @default(autoincrement()) // Mantido como opcional
   name                 String
   email                String       @unique
   phone                String       @unique
   createdAt            DateTime     @default(now())
   status               Status       @default(Active)
-  updateAt             DateTime     @updatedAt
-  accountsReceivable   AccountsReceivable[]
+  updateAt             DateTime?    @updatedAt
 }
 
 model Clients {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  phone     String   @unique
-  document  String   @unique
-  status    Status   @default(Active)
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  accountsReceivable AccountsReceivable[]
+  id                   String       @id @default(uuid()) // Gerado automaticamente como UUID
+  internal_id          Int?         @default(autoincrement()) // Mantido como opcional
+  name                 String
+  email                String       @unique
+  phone                String       @unique
+  document             String       @unique
+  status               Status       @default(Active)
+  createdAt            DateTime     @default(now())
+  updateAt             DateTime?    @updatedAt
+  accountsReceivable   AccountsReceivable[]
 }
 
 model AccountsReceivable {
-  id                   String       @id  @default(uuid())
-  id_user              String
+  id                   String       @id @default(uuid()) // Gerado automaticamente como UUID
+  internal_id          Int?         @default(autoincrement()) // Mantido como opcional
   id_client            String 
   value                Float
   description          String
-  installmentNumber    Int
   validate             DateTime
-  paymentDate          DateTime
+  paymentDate          DateTime?
+  paymentStatus        String
   status               Status       @default(Active)
   createdAt            DateTime     @default(now())
-  updateAt             DateTime     @updatedAt
+  updateAt             DateTime?    @updatedAt
   payments             Payments[]
 
-  user                 Users        @relation(fields: [id_user], references: [id])
   client               Clients      @relation(fields: [id_client], references: [id])
 }
 
 model Payments {
-  id                   String       @id  @default(uuid())
+  id                   String       @id @default(uuid()) // Gerado automaticamente como UUID
+  internal_id          Int?         @default(autoincrement())
   id_receivable        String
   value                Float
   paymentMethod        String
   status               Status       @default(Active)
   createdAt            DateTime     @default(now())
-  updateAt             DateTime     @updatedAt
+  updateAt             DateTime?    @updatedAt
 
   receivable           AccountsReceivable   @relation(fields: [id_receivable], references: [id])
 }

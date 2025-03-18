@@ -10,7 +10,8 @@ export class UserMapper {
       prismaUser.phone,
       prismaUser.createdAt,
       prismaUser.status as Status,
-      prismaUser.updateAt, 
+      prismaUser.internal_id ?? undefined,
+      prismaUser.updateAt ?? undefined, 
     );
   }
 
@@ -21,7 +22,8 @@ export class UserMapper {
       email: user.email,
       phone: user.phone,
       createdAt: user.createdAt,
-      updateAt: user.updatedAt ?? new Date(), 
+      internal_id: user.internalId ?? null,
+      updateAt: user.updatedAt ?? null,
       status: user.status,
     };
   }

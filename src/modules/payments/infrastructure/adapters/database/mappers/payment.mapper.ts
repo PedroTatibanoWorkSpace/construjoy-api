@@ -10,18 +10,27 @@ export class PaymentMapper {
       prismaPayment.paymentMethod,
       prismaPayment.status as Status,
       prismaPayment.createdAt,
-      prismaPayment.updateAt,
+      prismaPayment.internal_id ?? undefined,
+      prismaPayment.updateAt ?? undefined,
     );
   }
 
-  static toPersistence(payment: Payment): Omit<PrismaPayment, 'id_receivable'> {
-    return {
-      id: payment.id,
+  static toPersistence(payment: Payment): PrismaPayment {
+
+    const persistence: Partial<PrismaPayment> = { id: payment.id,
       value: payment.value,
       paymentMethod: payment.paymentMethod,
       status: payment.status,
       createdAt: payment.createdAt,
-      updateAt: payment.updatedAt ?? new Date(),
-    };
+      internal_id: payment.internalId ?? null,
+      updateAt: payment.updatedAt ?? null
+    }
+
+    if (payment.internalId !== undefined) {
+      persistence.internal_id = payment.internalId;
+    }
+    
+    return persistence as PrismaPayment;
+
   }
 }

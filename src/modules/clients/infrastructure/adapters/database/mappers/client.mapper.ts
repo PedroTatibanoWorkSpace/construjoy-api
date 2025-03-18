@@ -11,20 +11,28 @@ export class ClientMapper {
       prismaClient.document,
       prismaClient.createdAt,
       prismaClient.status as Status,
-      prismaClient.updateAt,
+      prismaClient.internal_id ?? undefined,
+      prismaClient.updateAt ?? undefined,
     );
   }
 
   static toPersistence(client: Client): PrismaClient {
-    return {
+    const persistence: Partial<PrismaClient> = {
       id: client.id,
       email: client.email,
       name: client.name,
       phone: client.phone,
       document: client.document,
-      status: client.status, 
+      status: client.status,
       createdAt: client.createdAt,
-      updateAt: client.updatedAt ?? new Date(),
+      updateAt: client.updatedAt ?? null,
     };
+  
+    if (client.internalId !== undefined) {
+      persistence.internal_id = client.internalId;
+    }
+  
+    return persistence as PrismaClient;
   }
+  
 }

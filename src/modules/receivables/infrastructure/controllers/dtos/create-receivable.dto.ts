@@ -14,9 +14,6 @@ export class CreateReceivableDto {
   @IsString()
   description: string;
 
-  @IsNumber()
-  installmentNumber: number;
-
   @Type(() => Date)
   @IsDate()
   validate: Date;
