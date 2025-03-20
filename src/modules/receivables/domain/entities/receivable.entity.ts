@@ -1,5 +1,6 @@
 import { Status } from '@prisma/client';
 import { CreateReceivableDto } from '../dtos/create-receivable.dto';
+import { Client } from 'src/modules/clients/domain/entities/client.entity';
 
 export class Receivable {
   constructor(
@@ -14,6 +15,7 @@ export class Receivable {
     public paymentDate?: Date,
     public readonly internalId?: number,
     public updatedAt?: Date,
+    public client?: Client,
   ) {}
 
   static create(data: CreateReceivableDto): Receivable {
