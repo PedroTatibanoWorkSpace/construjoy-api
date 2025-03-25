@@ -9,6 +9,7 @@ export class Receivable {
     public value: number,
     public description: string,
     public validate: Date,
+    public purchaseDate: Date | null,
     public paymentStatus: string,
     public status: Status,
     public readonly createdAt: Date,
@@ -21,14 +22,14 @@ export class Receivable {
   static create(data: CreateReceivableDto): Receivable {
     return new Receivable(
       crypto.randomUUID(),
-      data.userId,
+      data.clientId,
       data.value,
       data.description,
       data.validate,
+      data.purchaseDate,
       "Pendente",
       Status.Active,
       new Date(),
-      data.paymentDate ?? undefined,
     );
   }
 

@@ -8,6 +8,7 @@ export class CreateReceivableHandler {
 
   @Post()
   async execute(@Body() createReceivableDto: CreateReceivableDto) {
+    console.log("Log ==>",createReceivableDto);
     const result = await this.createReceivableUseCase.execute(createReceivableDto);
     return {
       data: result,

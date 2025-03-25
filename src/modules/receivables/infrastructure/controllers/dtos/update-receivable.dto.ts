@@ -4,10 +4,6 @@ import { Type } from 'class-transformer';
 export class UpdateReceivableDto {
   @IsOptional()
   @IsString()
-  userId?: string;
-
-  @IsOptional()
-  @IsString()
   clientId?: string;
 
   @IsOptional()
@@ -18,14 +14,16 @@ export class UpdateReceivableDto {
   @IsString()
   description?: string;
 
-  @IsOptional()
-  @IsNumber()
-  installmentNumber?: number;
 
   @IsOptional()
   @Type(() => Date)
   @IsDate()
   validate?: Date;
+  
+  @Type(() => Date)
+  @IsDate()
+  @IsOptional()
+  purchaseDate: Date;
 
   @IsOptional()
   @Type(() => Date)
