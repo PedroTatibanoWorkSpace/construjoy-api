@@ -43,6 +43,7 @@ model AccountsReceivable {
   value                Float
   description          String
   validate             DateTime
+  purchaseDate         DateTime
   paymentDate          DateTime?
   paymentStatus        String
   status               Status       @default(Active)
