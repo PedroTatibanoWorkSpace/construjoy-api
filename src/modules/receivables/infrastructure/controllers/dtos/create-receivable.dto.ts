@@ -3,9 +3,6 @@ import { Type } from 'class-transformer';
 
 export class CreateReceivableDto {
   @IsString()
-  userId: string;
-
-  @IsString()
   clientId: string;
 
   @IsNumber()
@@ -20,5 +17,5 @@ export class CreateReceivableDto {
 
   @Type(() => Date)
   @IsDate()
-  paymentDate: Date;
+  purchaseDate: Date;
 }

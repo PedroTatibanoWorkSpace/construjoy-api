@@ -1,5 +1,6 @@
 import { Status } from '@prisma/client';
 import { CreateReceivableDto } from '../dtos/create-receivable.dto';
+import { Client } from 'src/modules/clients/domain/entities/client.entity';
 
 export class Receivable {
   constructor(
@@ -8,25 +9,27 @@ export class Receivable {
     public value: number,
     public description: string,
     public validate: Date,
+    public purchaseDate: Date | null,
     public paymentStatus: string,
     public status: Status,
     public readonly createdAt: Date,
     public paymentDate?: Date,
     public readonly internalId?: number,
     public updatedAt?: Date,
+    public client?: Client,
   ) {}
 
   static create(data: CreateReceivableDto): Receivable {
     return new Receivable(
       crypto.randomUUID(),
-      data.userId,
+      data.clientId,
       data.value,
       data.description,
       data.validate,
+      data.purchaseDate,
       "Pendente",
       Status.Active,
       new Date(),
-      data.paymentDate ?? undefined,
     );
   }
 

@@ -1,8 +1,7 @@
 export class CreateReceivableDto {
-  userId: string;
   clientId: string;
   value: number;
   description: string;
+  purchaseDate: Date;
   validate: Date;
-  paymentDate: Date;
 }
