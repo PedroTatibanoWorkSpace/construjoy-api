@@ -26,7 +26,7 @@ export class PrismaReceivableRepository implements ReceivableRepositoryPort {
   async findOne(where: Prisma.AccountsReceivableWhereInput): Promise<Receivable | null> {
     const prismaReceivable = await this.prisma.accountsReceivable.findFirst({
       where,
-      include: { client: true, payments: true }, // Removido o campo `user`
+      include: { client: true, payments: true }, 
     });
     return prismaReceivable ? ReceivableMapper.toDomain(prismaReceivable) : null;
   }
