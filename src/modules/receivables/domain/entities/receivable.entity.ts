@@ -43,6 +43,7 @@ export class Receivable {
     this.description = updateData.description ?? this.description;
     this.validate = updateData.validate ?? this.validate;
     this.paymentDate = updateData.paymentDate ?? this.paymentDate;
+    this.paymentStatus = updateData.paymentStatus ?? this.paymentStatus;
     this.updatedAt = new Date();
   }
 
