@@ -10,8 +10,10 @@ import { UpdateClientHandler } from './infrastructure/controllers/handlers/updat
 import { DeleteClientHandler } from './infrastructure/controllers/handlers/delete-client.handler';
 import { FindOneClientByIdHandler } from './infrastructure/controllers/handlers/find-one-client-by-id.handler';
 import { FindAllClientsHandler } from './infrastructure/controllers/handlers/find-all-clients.handler';
+import { ReceivableModule } from '../receivables/receivable.module';
 
 @Module({
+  imports: [ReceivableModule],
   providers: [
     {
       provide: 'ClientRepositoryPort',

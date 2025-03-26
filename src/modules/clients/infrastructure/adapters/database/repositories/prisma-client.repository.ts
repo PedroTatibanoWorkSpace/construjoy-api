@@ -27,12 +27,25 @@ export class PrismaClientRepository implements ClientRepositoryPort {
   async findOne(where: Prisma.ClientsWhereInput): Promise<Client | null> {
     const prismaClient = await this.prisma.clients.findFirst({
       where,
+      include: {
+        accountsReceivable: {
+          where: { status: 'Active' }, 
+        },
+      },
     });
-    return prismaClient ? ClientMapper.toDomain(prismaClient) : null;
+    return prismaClient
+      ? ClientMapper.toDomain({
+          ...prismaClient,
+          receivables: prismaClient.accountsReceivable, 
+        })
+      : null;
   }
 
-  async findAll(where?: Prisma.ClientsWhereInput): Promise<Client[]> {
-    const prismaClients = await this.prisma.clients.findMany({ where });
+  async findAll(where?: Prisma.ClientsWhereInput, order?: Prisma.ClientsOrderByWithRelationInput): Promise<Client[]> {
+    const prismaClients = await this.prisma.clients.findMany({
+      where: { ...where, status: 'Active' },
+      orderBy: order || { createdAt: 'desc' },
+    });
     return prismaClients.map(ClientMapper.toDomain);
   }
 
