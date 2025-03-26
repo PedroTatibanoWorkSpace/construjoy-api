@@ -45,6 +45,11 @@ export class PrismaClientRepository implements ClientRepositoryPort {
     const prismaClients = await this.prisma.clients.findMany({
       where: { ...where, status: 'Active' },
       orderBy: order || { createdAt: 'desc' },
+      include: {
+        accountsReceivable: {
+          where: { status: 'Active' },
+        },
+      },
     });
     return prismaClients.map(ClientMapper.toDomain);
   }
