@@ -41,6 +41,7 @@ export class Receivable {
     this.clientId = updateData.clientId ?? this.clientId;
     this.value = updateData.value ?? this.value;
     this.description = updateData.description ?? this.description;
+    this.purchaseDate = updateData.purchaseDate ?? this.purchaseDate;
     this.validate = updateData.validate ?? this.validate;
     this.paymentDate = updateData.paymentDate ?? this.paymentDate;
     this.paymentStatus = updateData.paymentStatus ?? this.paymentStatus;
