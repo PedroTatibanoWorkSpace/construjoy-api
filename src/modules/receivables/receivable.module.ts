@@ -12,6 +12,8 @@ import { FindReceivableByIdHandler } from './infrastructure/controllers/handlers
 import { FindAllReceivablesHandler } from './infrastructure/controllers/handlers/find-all-receivables.handler';
 import { PaidReceivableHandler } from './infrastructure/controllers/handlers/paid-receivable.handler';
 import { PaidReceivableUseCase } from './application/use-cases/paid-receivable.use-case';
+import { PaidMultipleReceivablesHandler } from './infrastructure/controllers/handlers/paid-multiple-receivables.handler';
+import { PaidMultipleReceivablesUseCase } from './application/use-cases/paid-multiple-receivables.use-case';
 
 @Module({
   providers: [
@@ -25,7 +27,8 @@ import { PaidReceivableUseCase } from './application/use-cases/paid-receivable.u
     DeleteReceivableUseCase,
     FindReceivableByIdUseCase,
     FindAllReceivablesUseCase,
-    PaidReceivableUseCase
+    PaidReceivableUseCase,
+    PaidMultipleReceivablesUseCase
   ],
   controllers: [
     CreateReceivableHandler,
@@ -33,7 +36,8 @@ import { PaidReceivableUseCase } from './application/use-cases/paid-receivable.u
     DeleteReceivableHandler,
     FindReceivableByIdHandler,
     FindAllReceivablesHandler,
-    PaidReceivableHandler
+    PaidReceivableHandler,
+    PaidMultipleReceivablesHandler
   ],
   exports: [PrismaReceivableRepository, DeleteReceivableUseCase],
 })
