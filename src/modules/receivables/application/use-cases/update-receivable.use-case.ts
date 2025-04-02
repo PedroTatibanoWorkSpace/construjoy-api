@@ -18,11 +18,13 @@ export class UpdateReceivableUseCase {
       }
 
       receivable.update(updateReceivableDto);
-      return await this.receivableRepository.update(id, receivable);
+      const updatedReceivable = await this.receivableRepository.update(id, receivable);
+      return updatedReceivable;
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;
       }
+      console.error('Erro ao atualizar conta a receber:', error);
       throw new InternalServerErrorException('Erro ao atualizar conta a receber');
     }
   }

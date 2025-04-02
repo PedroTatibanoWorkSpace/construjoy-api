@@ -7,7 +7,7 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
 
   constructor() {
     this.prisma = new PrismaClient({
-      log: ['query', 'info', 'warn', 'error'],
+      log: [],
     });
   }
 
