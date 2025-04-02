@@ -3,5 +3,6 @@ export class UpdateReceivableDto {
   value?: number;
   description?: string;
   validate?: Date;
+  paymentStatus? : string;
   paymentDate?: Date;
 }

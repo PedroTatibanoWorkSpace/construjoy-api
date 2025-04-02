@@ -10,6 +10,10 @@ import { UpdateReceivableHandler } from './infrastructure/controllers/handlers/u
 import { DeleteReceivableHandler } from './infrastructure/controllers/handlers/delete-receivable.handler';
 import { FindReceivableByIdHandler } from './infrastructure/controllers/handlers/find-receivable-by-id.handler';
 import { FindAllReceivablesHandler } from './infrastructure/controllers/handlers/find-all-receivables.handler';
+import { PaidReceivableHandler } from './infrastructure/controllers/handlers/paid-receivable.handler';
+import { PaidReceivableUseCase } from './application/use-cases/paid-receivable.use-case';
+import { PaidMultipleReceivablesHandler } from './infrastructure/controllers/handlers/paid-multiple-receivables.handler';
+import { PaidMultipleReceivablesUseCase } from './application/use-cases/paid-multiple-receivables.use-case';
 
 @Module({
   providers: [
@@ -23,6 +27,8 @@ import { FindAllReceivablesHandler } from './infrastructure/controllers/handlers
     DeleteReceivableUseCase,
     FindReceivableByIdUseCase,
     FindAllReceivablesUseCase,
+    PaidReceivableUseCase,
+    PaidMultipleReceivablesUseCase
   ],
   controllers: [
     CreateReceivableHandler,
@@ -30,7 +36,10 @@ import { FindAllReceivablesHandler } from './infrastructure/controllers/handlers
     DeleteReceivableHandler,
     FindReceivableByIdHandler,
     FindAllReceivablesHandler,
+    PaidReceivableHandler,
+    PaidMultipleReceivablesHandler
   ],
-  exports: [PrismaReceivableRepository],
+  exports: [PrismaReceivableRepository, DeleteReceivableUseCase],
 })
+
 export class ReceivableModule {}

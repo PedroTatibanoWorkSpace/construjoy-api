@@ -1,5 +1,7 @@
 import { CreateClientDto } from '../dtos/create-client.dto';
 import { Status } from '@prisma/client'; 
+import { Receivable } from 'src/modules/receivables/domain/entities/receivable.entity';
+
 export class Client {
   constructor(
     public readonly id: string,
@@ -11,6 +13,7 @@ export class Client {
     public status: Status, 
     public readonly internalId?: number,
     public updatedAt?: Date,
+    public readonly receivables: Receivable[] = []
   ) {}
 
   static create(createClientDto: CreateClientDto): Client {
