@@ -13,8 +13,8 @@ enum Status {
 }
 
 model Users {
-  id                   String       @id @default(uuid()) // Gerado automaticamente como UUID
-  internal_id          Int?         @default(autoincrement()) // Mantido como opcional
+  id                   String       @id @default(uuid()) 
+  internal_id          Int?         @default(autoincrement()) 
   name                 String
   email                String       @unique
   phone                String       @unique
@@ -24,12 +24,12 @@ model Users {
 }
 
 model Clients {
-  id                   String       @id @default(uuid()) // Gerado automaticamente como UUID
-  internal_id          Int?         @default(autoincrement()) // Mantido como opcional
+  id                   String       @id @default(uuid())
+  internal_id          Int?         @default(autoincrement()) 
   name                 String
-  email                String       @unique
-  phone                String       @unique
-  document             String       @unique
+  email                String       
+  phone                String       
+  document             String 
   status               Status       @default(Active)
   createdAt            DateTime     @default(now())
   updateAt             DateTime?    @updatedAt
@@ -37,12 +37,13 @@ model Clients {
 }
 
 model AccountsReceivable {
-  id                   String       @id @default(uuid()) // Gerado automaticamente como UUID
-  internal_id          Int?         @default(autoincrement()) // Mantido como opcional
+  id                   String       @id @default(uuid()) 
+  internal_id          Int?         @default(autoincrement())
   id_client            String 
   value                Float
   description          String
   validate             DateTime
+  purchaseDate         DateTime
   paymentDate          DateTime?
   paymentStatus        String
   status               Status       @default(Active)
@@ -54,7 +55,7 @@ model AccountsReceivable {
 }
 
 model Payments {
-  id                   String       @id @default(uuid()) // Gerado automaticamente como UUID
+  id                   String       @id @default(uuid())
   internal_id          Int?         @default(autoincrement())
   id_receivable        String
   value                Float

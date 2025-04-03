@@ -4,6 +4,7 @@ import { Receivable } from 'src/modules/receivables/domain/entities/receivable.e
 import { ReceivableRepositoryPort } from 'src/modules/receivables/domain/ports/receivable-repository.port';
 import { Prisma } from '@prisma/client';
 import { ReceivableMapper } from '../mappers/receivable.mapper';
+import { stat } from 'fs';
 
 @Injectable()
 export class PrismaReceivableRepository implements ReceivableRepositoryPort {
@@ -19,6 +20,7 @@ export class PrismaReceivableRepository implements ReceivableRepositoryPort {
         ...ReceivableMapper.toPersistence(receivable),
         client: { connect: { id: receivable.clientId } },
       },
+      include: { client: true }, // Inclui o cliente no retorno
     });
     return ReceivableMapper.toDomain(prismaReceivable);
   }
@@ -26,15 +28,16 @@ export class PrismaReceivableRepository implements ReceivableRepositoryPort {
   async findOne(where: Prisma.AccountsReceivableWhereInput): Promise<Receivable | null> {
     const prismaReceivable = await this.prisma.accountsReceivable.findFirst({
       where,
-      include: { client: true, payments: true }, // Removido o campo `user`
+      include: { client: true, payments: true }, 
     });
     return prismaReceivable ? ReceivableMapper.toDomain(prismaReceivable) : null;
   }
 
-  async findAll(where?: Prisma.AccountsReceivableWhereInput): Promise<Receivable[]> {
+  async findAll(where?: Prisma.AccountsReceivableWhereInput, order?: Prisma.AccountsReceivableOrderByWithRelationInput): Promise<Receivable[]> {
     const prismaReceivables = await this.prisma.accountsReceivable.findMany({
-      where,
+      where: {...where, status: 'Active'}, 
       include: { client: true, payments: true },
+      orderBy: order || { createdAt: 'desc' },
     });
     return prismaReceivables.map(ReceivableMapper.toDomain);
   }

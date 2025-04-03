@@ -8,7 +8,6 @@ export class CreateClientHandler {
 
   @Post()
   async execute(@Body() createClientDto: CreateClientDto) {
-    console.log("log do client",createClientDto)
     const result = await this.createClientUseCase.execute(createClientDto);
     return {
       data: result,
