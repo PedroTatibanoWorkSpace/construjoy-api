@@ -24,7 +24,7 @@ Um sistema backend desenvolvido com NestJS para gerenciamento de crédito para c
 ## 🔧 Instalação
 
 ```sh
-git clone https://github.com/seu-usuario/construjoy-api.git
+git clone https://github.com/PedroTatibanoWorkSpace/construjoy-api.git
 cd construjoy-api
 npm install
 # ou
