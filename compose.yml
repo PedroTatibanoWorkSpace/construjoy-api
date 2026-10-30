@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:14.10-alpine
@@ -9,15 +7,38 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER} -d ${DB_NAME}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
-  constru-control:
-    depends_on:
-      - postgres
+  api:
     build:
       context: .
       dockerfile: Dockerfile
     image: constru-control
+    depends_on:
+      postgres:
+        condition: service_healthy
     ports:
       - '${APP_PORT:-8000}:8000'
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+      PORT: 8000
+      ML_SERVICE_URL: http://ml:8001
+
+  ml:
+    build: ./ml-service
+    ports:
+      - '8001:8001'
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

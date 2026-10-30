@@ -83,11 +83,18 @@ yarn start:dev
 
 ## 📦 Executando com Docker
 
-Antes de executar, certifique-se de definir as variáveis de ambiente no arquivo `.env`.
+Sobe a stack completa (PostgreSQL, API e serviço de ML):
 
 ```sh
-docker-compose up --build
+cp .env.example .env   # preencha DB_USER, DB_PASSWORD e DB_NAME
+docker compose up --build
 ```
+
+- A API fica em `http://localhost:8000` (ex.: `curl localhost:8000/clients`).
+- As migrations do Prisma são aplicadas automaticamente na inicialização da API.
+- Dentro do compose, `DATABASE_URL` aponta para o host `postgres` e a API acessa o ML em `http://ml:8001`; o `DATABASE_URL` do `.env` só vale para execução local.
+- Para subir só o banco e a API: `docker compose up --build postgres api`.
+- Para derrubar: `docker compose down` (adicione `-v` para apagar o volume do banco).
 
 ## 📬 Contato
 
