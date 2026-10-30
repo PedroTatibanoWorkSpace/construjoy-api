@@ -3,4 +3,5 @@ export class CreateClientDto {
     name: string;
     phone: string;
     document: string;
+    address?: string;
 }

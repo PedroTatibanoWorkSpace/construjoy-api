@@ -30,6 +30,12 @@ model Clients {
   email                String       
   phone                String       
   document             String 
+  address              String?
+  riskScore            Int?
+  riskLevel            String?
+  riskProbability      Float?
+  creditLimit          Float?
+  riskUpdatedAt        DateTime?
   status               Status       @default(Active)
   createdAt            DateTime     @default(now())
   updateAt             DateTime?    @updatedAt

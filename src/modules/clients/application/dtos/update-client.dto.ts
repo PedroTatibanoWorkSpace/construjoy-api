@@ -3,4 +3,5 @@ export class UpdateClientDto {
   name?: string;
   phone?: string;
   document?: string;
+  address?: string;
 }

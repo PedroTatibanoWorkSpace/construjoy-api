@@ -13,7 +13,13 @@ export class Client {
     public status: Status, 
     public readonly internalId?: number,
     public updatedAt?: Date,
-    public readonly receivables: Receivable[] = []
+    public readonly receivables: Receivable[] = [],
+    public address?: string,
+    public riskScore?: number,
+    public riskLevel?: string,
+    public riskProbability?: number,
+    public creditLimit?: number,
+    public riskUpdatedAt?: Date,
   ) {}
 
   static create(createClientDto: CreateClientDto): Client {
@@ -25,6 +31,10 @@ export class Client {
       createClientDto.document,
       new Date(),
       Status.Active,
+      undefined,
+      undefined,
+      [],
+      createClientDto.address,
     );
   }
 
@@ -37,7 +47,21 @@ export class Client {
     this.name = updateData.name ?? this.name;
     this.phone = updateData.phone ?? this.phone;
     this.document = updateData.document ?? this.document;
+    this.address = updateData.address ?? this.address;
     this.updatedAt = new Date();
+  }
+
+  applyRisk(risk: {
+    score: number;
+    level: string;
+    probability: number;
+    creditLimit: number;
+  }): void {
+    this.riskScore = risk.score;
+    this.riskLevel = risk.level;
+    this.riskProbability = risk.probability;
+    this.creditLimit = risk.creditLimit;
+    this.riskUpdatedAt = new Date();
   }
 
   delete(): void {

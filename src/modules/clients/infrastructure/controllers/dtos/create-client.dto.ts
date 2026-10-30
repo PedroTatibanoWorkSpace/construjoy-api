@@ -1,4 +1,4 @@
-import { IsEmail, IsString, Matches, IsNotEmpty} from 'class-validator';
+import { IsEmail, IsString, Matches, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateClientDto {
   @IsEmail()
@@ -17,4 +17,7 @@ export class CreateClientDto {
   })
   @IsNotEmpty()
   document: string;
+  @IsString()
+  @IsOptional()
+  address?: string;
 }
