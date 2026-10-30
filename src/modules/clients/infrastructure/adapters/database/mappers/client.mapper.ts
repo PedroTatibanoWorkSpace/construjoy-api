@@ -34,7 +34,13 @@ export class ClientMapper {
       prismaClient.status as Status,
       prismaClient.internal_id ?? undefined,
       prismaClient.updateAt ?? undefined,
-      receivables, 
+      receivables,
+      prismaClient.address ?? undefined,
+      prismaClient.riskScore ?? undefined,
+      prismaClient.riskLevel ?? undefined,
+      prismaClient.riskProbability ?? undefined,
+      prismaClient.creditLimit ?? undefined,
+      prismaClient.riskUpdatedAt ?? undefined,
     );
   }
 
@@ -45,6 +51,12 @@ export class ClientMapper {
       name: client.name,
       phone: client.phone,
       document: client.document,
+      address: client.address,
+      riskScore: client.riskScore,
+      riskLevel: client.riskLevel,
+      riskProbability: client.riskProbability,
+      creditLimit: client.creditLimit,
+      riskUpdatedAt: client.riskUpdatedAt,
       status: client.status,
       createdAt: client.createdAt,
       updateAt: client.updatedAt ?? null,

@@ -11,6 +11,8 @@ import { GetReceivablesByMonthHandler } from './infrastructure/controllers/handl
 import { GetReceivablesByStatusHandler } from './infrastructure/controllers/handlers/get-receivables-by-status.handler';
 import { GetTopClientsHandler } from './infrastructure/controllers/handlers/get-top-clients.handler';
 import { GetOverdueAgingHandler } from './infrastructure/controllers/handlers/get-overdue-aging.handler';
+import { GetRiskDistributionUseCase } from './application/use-cases/get-risk-distribution.use-case';
+import { GetRiskDistributionHandler } from './infrastructure/controllers/handlers/get-risk-distribution.handler';
 import { GetMonthlyRevenueHandler } from './infrastructure/controllers/handlers/get-monthly-revenue.handler';
 
 @Module({
@@ -22,6 +24,7 @@ import { GetMonthlyRevenueHandler } from './infrastructure/controllers/handlers/
     GetTopClientsUseCase,
     GetOverdueAgingUseCase,
     GetMonthlyRevenueUseCase,
+    GetRiskDistributionUseCase,
   ],
   controllers: [
     GetFinancialSummaryHandler,
@@ -30,6 +33,7 @@ import { GetMonthlyRevenueHandler } from './infrastructure/controllers/handlers/
     GetTopClientsHandler,
     GetOverdueAgingHandler,
     GetMonthlyRevenueHandler,
+    GetRiskDistributionHandler,
   ],
 })
 export class AnalyticsModule {}

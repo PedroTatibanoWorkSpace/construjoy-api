@@ -14,6 +14,8 @@ import { PaidReceivableHandler } from './infrastructure/controllers/handlers/pai
 import { PaidReceivableUseCase } from './application/use-cases/paid-receivable.use-case';
 import { PaidMultipleReceivablesHandler } from './infrastructure/controllers/handlers/paid-multiple-receivables.handler';
 import { PaidMultipleReceivablesUseCase } from './application/use-cases/paid-multiple-receivables.use-case';
+import { MarkOverdueReceivablesUseCase } from './application/use-cases/mark-overdue-receivables.use-case';
+import { MarkOverdueReceivablesScheduler } from './infrastructure/schedulers/mark-overdue-receivables.scheduler';
 
 @Module({
   providers: [
@@ -28,7 +30,9 @@ import { PaidMultipleReceivablesUseCase } from './application/use-cases/paid-mul
     FindReceivableByIdUseCase,
     FindAllReceivablesUseCase,
     PaidReceivableUseCase,
-    PaidMultipleReceivablesUseCase
+    PaidMultipleReceivablesUseCase,
+    MarkOverdueReceivablesUseCase,
+    MarkOverdueReceivablesScheduler,
   ],
   controllers: [
     CreateReceivableHandler,

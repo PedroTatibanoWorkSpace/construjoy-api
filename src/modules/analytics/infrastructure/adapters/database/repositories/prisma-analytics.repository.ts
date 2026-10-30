@@ -206,4 +206,29 @@ export class PrismaAnalyticsRepository {
       count: Number(row.count),
     }));
   }
+
+  async getRiskDistribution() {
+    const result = await this.prisma.$queryRawUnsafe<
+      Array<{ level: string; count: bigint; total_open: number }>
+    >(
+      `SELECT
+        COALESCE(c."riskLevel", 'Sem score') as level,
+        COUNT(DISTINCT c.id) as count,
+        COALESCE(SUM(ar.value), 0) as total_open
+      FROM "Clients" c
+      LEFT JOIN "AccountsReceivable" ar
+        ON ar.id_client = c.id
+        AND ar.status = 'Active'
+        AND ar."paymentStatus" IN ('Pendente', 'Atrasado')
+      WHERE c.status = 'Active'
+      GROUP BY COALESCE(c."riskLevel", 'Sem score')
+      ORDER BY level ASC`,
+    );
+
+    return result.map((row) => ({
+      level: row.level,
+      count: Number(row.count),
+      totalOpen: Number(row.total_open),
+    }));
+  }
 }

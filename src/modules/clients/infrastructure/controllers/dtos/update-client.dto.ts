@@ -21,4 +21,8 @@ export class UpdateClientDto {
   })
   @IsOptional()
   document?: string;
+
+  @IsString()
+  @IsOptional()
+  address?: string;
 }
