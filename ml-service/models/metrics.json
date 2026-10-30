@@ -1,0 +1,119 @@
+{
+  "trainedAt": "2026-10-30T18:46:18.256574+00:00",
+  "bestModel": "random_forest",
+  "selectionMetric": "rocAuc",
+  "decisionThreshold": 0.5,
+  "dataset": {
+    "samples": 4637,
+    "trainSamples": 3477,
+    "testSamples": 1160,
+    "defaultRate": 0.27582488678024586,
+    "split": "holdout estratificado 75/25",
+    "unit": "conta a receber, com features do histórico anterior à compra"
+  },
+  "features": [
+    "purchase_count",
+    "purchase_frequency",
+    "avg_purchase_value",
+    "relationship_days",
+    "days_since_last_purchase",
+    "avg_days_late",
+    "max_days_late",
+    "on_time_rate",
+    "open_balance",
+    "overdue_balance",
+    "overdue_count"
+  ],
+  "models": {
+    "logistic_regression": {
+      "accuracy": 0.8138,
+      "precision": 0.6557,
+      "recall": 0.6844,
+      "f1": 0.6697,
+      "rocAuc": 0.8515,
+      "ks": 0.5673,
+      "gini": 0.703,
+      "confusionMatrix": [
+        [
+          725,
+          115
+        ],
+        [
+          101,
+          219
+        ]
+      ],
+      "cvRocAucMean": 0.8157,
+      "cvRocAucStd": 0.0127
+    },
+    "decision_tree": {
+      "accuracy": 0.7983,
+      "precision": 0.6222,
+      "recall": 0.6844,
+      "f1": 0.6518,
+      "rocAuc": 0.85,
+      "ks": 0.5418,
+      "gini": 0.6999,
+      "confusionMatrix": [
+        [
+          707,
+          133
+        ],
+        [
+          101,
+          219
+        ]
+      ],
+      "cvRocAucMean": 0.8065,
+      "cvRocAucStd": 0.0187
+    },
+    "random_forest": {
+      "accuracy": 0.8078,
+      "precision": 0.6374,
+      "recall": 0.7031,
+      "f1": 0.6686,
+      "rocAuc": 0.8628,
+      "ks": 0.564,
+      "gini": 0.7257,
+      "confusionMatrix": [
+        [
+          712,
+          128
+        ],
+        [
+          95,
+          225
+        ]
+      ],
+      "cvRocAucMean": 0.8272,
+      "cvRocAucStd": 0.0154
+    }
+  },
+  "calibration": {
+    "method": "sigmoid (Platt), 5 folds",
+    "observedDefaultRate": 0.2759,
+    "meanProbabilityBefore": 0.4004,
+    "meanProbabilityAfter": 0.2848,
+    "brierBefore": 0.1413,
+    "brierAfter": 0.1251
+  },
+  "featureImportance": {
+    "on_time_rate": 0.234793,
+    "avg_days_late": 0.196665,
+    "overdue_balance": 0.115978,
+    "overdue_count": 0.097539,
+    "max_days_late": 0.096849,
+    "relationship_days": 0.055448,
+    "open_balance": 0.040642,
+    "avg_purchase_value": 0.039484,
+    "purchase_frequency": 0.038261,
+    "days_since_last_purchase": 0.03603,
+    "purchase_count": 0.030139,
+    "missingindicator_on_time_rate": 0.017587,
+    "missingindicator_days_since_last_purchase": 0.000586
+  },
+  "thresholds": {
+    "high": 0.6,
+    "medium": 0.3
+  }
+}
